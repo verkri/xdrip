@@ -16,4 +16,4 @@ ENV PATH ${ANDROID_HOME}/cmdline-tools/latest:${ANDROID_HOME}/cmdline-tools/late
 
 RUN source ~/.sdkman/bin/sdkman-init.sh && \ 
     sdk install java && \
-    yes | /opt/cmdlinetools/cmdline-tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "cmdline-tools;latest" "platform-tools"
+    yes | /opt/cmdlinetools/cmdline-tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "cmdline-tools;latest" "platform-tools" "platforms;android-29"
