@@ -1,33 +1,19 @@
 FROM gitpod/workspace-full-vnc
-                    
-USER gitpod
-
-# Install custom tools, runtime, etc. using apt-get
-# For example, the command below would install "bastet" - a command line tetris clone:
-#
-# RUN sudo apt-get -q update && #     sudo apt-get install -yq bastet && #     sudo rm -rf /var/lib/apt/lists/*
-#
-# More information: https://www.gitpod.io/docs/42_config_docker/
-
-ENV ANDROID_HOME /opt/android-sdk-linux
 
 USER root
-
-ENV ANDROID_HOME /opt/android-sdk-linux
-
-RUN apt update -qq && apt install zip unzip
-
-RUN cd /opt && \
-    wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \
-    unzip -q *.zip -d ${ANDROID_HOME} && \
-    rm *.zip
-
-RUN chmod -R 777 ${ANDROID_HOME}
-
-RUN apt clean -qq
+RUN apt update -qq && apt install zip unzip && \
+    cd /opt && \
+    wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip && \
+    unzip -q *.zip -d /opt/cmdlinetools && \
+    rm *.zip && \
+    mkdir -p /opt/android-sdk && \
+    chmod -R 777 /opt/android-sdk && \
+    chown -R gitpod:gitpod /opt/android-sdk
 
 USER gitpod
+ENV ANDROID_HOME /opt/android-sdk
+ENV PATH ${ANDROID_HOME}/cmdline-tools/latest:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${PATH}
 
-ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${PATH}
-
-RUN ["/bin/bash", "-c", "source ~/.sdkman/bin/sdkman-init.sh && sdk install java 
+RUN source ~/.sdkman/bin/sdkman-init.sh && \ 
+    sdk install java && \
+    yes | /opt/cmdlinetools/cmdline-tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "cmdline-tools;latest" "platform-tools"
