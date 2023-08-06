@@ -6,7 +6,7 @@ android {
     compileSdkVersion 29
     lintOptions {
         checkReleaseBuilds false
-//        abortOnError false
+        abortOnError false
     }
     defaultConfig {
         applicationId "com.eveningoutpost.dexdrip"
