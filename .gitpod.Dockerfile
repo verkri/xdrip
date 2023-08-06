@@ -14,6 +14,6 @@ USER gitpod
 ENV ANDROID_HOME /opt/android-sdk
 ENV PATH ${ANDROID_HOME}/cmdline-tools/latest:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${PATH}
 
-RUN source ~/.sdkman/bin/sdkman-init.sh && \ 
-    sdk install java && \
-    yes | /opt/cmdlinetools/cmdline-tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "cmdline-tools;latest" "platform-tools" "platforms;android-29"
+RUN yes | sdk install java && \
+    mkdir -p ${ANDROID_HOME}/licenses && \
+    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> ${ANDROID_HOME}/licenses/android-sdk-license
