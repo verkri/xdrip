@@ -11,9 +11,8 @@ RUN apt update -qq && apt install zip unzip && \
     chown -R gitpod:gitpod /opt/android-sdk
 
 USER gitpod
-ENV ANDROID_HOME /opt/android-sdk
-ENV PATH ${ANDROID_HOME}/cmdline-tools/latest:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${PATH}
+# ENV ANDROID_HOME /opt/android-sdk
+# ENV PATH ${ANDROID_HOME}/cmdline-tools/latest:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${PATH}
 
-RUN yes | sdk install java && \
-    mkdir -p ${ANDROID_HOME}/licenses && \
-    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> ${ANDROID_HOME}/licenses/android-sdk-license
+RUN mkdir -p /opt/android-sdk/licenses && \
+    echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> /opt/android-sdk/licenses/android-sdk-license
